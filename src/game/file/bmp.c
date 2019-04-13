@@ -2,14 +2,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-
-typedef struct {
-    int8_t header[2];
-    uint32_t size;
-    uint16_t resv0;
-    uint16_t resv1;
-    uint32_t offset;
-} bmp_header_t;
+#include <stdlib.h>
 
 void bmp_open(const char *fn) {
     FILE *bmp = fopen(fn, "rb");
@@ -23,5 +16,15 @@ void bmp_open(const char *fn) {
 
     fread(data, sizeof(char), fsize, bmp);
 
+    bmp_header_t *header = (bmp_header_t *)data;
+    if (header->header[0] != 'B' || header->header[1] != 'M') {
+        printf("Error: Invalid BMP header\n");
+        goto end;
+    }
+
+
+
+end:
+    free(data);
     fclose(bmp);
 }

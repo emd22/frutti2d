@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "gl.h": "c",
+        "shader.h": "c"
+    }
+}

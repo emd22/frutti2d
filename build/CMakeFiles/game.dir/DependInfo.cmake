@@ -4,17 +4,20 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/ethan/Projects/2d-engine-2/src/game/main.c" "/home/ethan/Projects/2d-engine-2/build/CMakeFiles/game.dir/game/main.c.o"
-  "/home/ethan/Projects/2d-engine-2/src/game/threads.c" "/home/ethan/Projects/2d-engine-2/build/CMakeFiles/game.dir/game/threads.c.o"
-  "/home/ethan/Projects/2d-engine-2/src/game/wm/events.c" "/home/ethan/Projects/2d-engine-2/build/CMakeFiles/game.dir/game/wm/events.c.o"
-  "/home/ethan/Projects/2d-engine-2/src/game/wm/window.c" "/home/ethan/Projects/2d-engine-2/build/CMakeFiles/game.dir/game/wm/window.c.o"
-  "/home/ethan/Projects/2d-engine-2/src/game/wm/wm.c" "/home/ethan/Projects/2d-engine-2/build/CMakeFiles/game.dir/game/wm/wm.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/file/bmp.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/file/bmp.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/main.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/main.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/shader.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/shader.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/texture.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/texture.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/threads.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/threads.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/wm/events.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/wm/events.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/wm/window.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/wm/window.c.o"
+  "/home/ethan/Desktop/2d-engine/src/game/wm/wm.c" "/home/ethan/Desktop/2d-engine/build/CMakeFiles/game.dir/game/wm/wm.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/home/ethan/Projects/2d-engine-2/src/../include"
+  "/home/ethan/Desktop/2d-engine/src/../include"
   )
 
 # Targets to which this target links.

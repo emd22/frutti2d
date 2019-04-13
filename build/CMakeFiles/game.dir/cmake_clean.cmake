@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/game.dir/game/file/bmp.c.o"
   "CMakeFiles/game.dir/game/main.c.o"
+  "CMakeFiles/game.dir/game/shader.c.o"
+  "CMakeFiles/game.dir/game/texture.c.o"
   "CMakeFiles/game.dir/game/threads.c.o"
   "CMakeFiles/game.dir/game/wm/events.c.o"
   "CMakeFiles/game.dir/game/wm/window.c.o"

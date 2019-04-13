@@ -1,24 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp
+Change Dir: /home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9ff0e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9ff0e.dir/build.make CMakeFiles/cmTC_9ff0e.dir/build
-make[1]: Entering directory '/home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_9ff0e.dir/CheckSymbolExists.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_9ff0e.dir/CheckSymbolExists.c.o   -c /home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_9ff0e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ff0e.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_9ff0e.dir/CheckSymbolExists.c.o  -o cmTC_9ff0e 
-CMakeFiles/cmTC_9ff0e.dir/CheckSymbolExists.c.o: In function `main':
-CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+Run Build Command:"/usr/bin/make" "cmTC_0a832/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0a832.dir/build.make CMakeFiles/cmTC_0a832.dir/build
+make[1]: Entering directory '/home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0a832.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_0a832.dir/CheckSymbolExists.c.o   -c /home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_0a832
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0a832.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_0a832.dir/CheckSymbolExists.c.o  -o cmTC_0a832 
+CMakeFiles/cmTC_0a832.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_9ff0e.dir/build.make:97: recipe for target 'cmTC_9ff0e' failed
-make[1]: *** [cmTC_9ff0e] Error 1
-make[1]: Leaving directory '/home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_9ff0e/fast' failed
-make: *** [cmTC_9ff0e/fast] Error 2
+CMakeFiles/cmTC_0a832.dir/build.make:86: recipe for target 'cmTC_0a832' failed
+make[1]: *** [cmTC_0a832] Error 1
+make[1]: Leaving directory '/home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_0a832/fast' failed
+make: *** [cmTC_0a832/fast] Error 2
 
-File /home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp
+Change Dir: /home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a73e4/fast"
-/usr/bin/make -f CMakeFiles/cmTC_a73e4.dir/build.make CMakeFiles/cmTC_a73e4.dir/build
-make[1]: Entering directory '/home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_a73e4.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_a73e4.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
-Linking C executable cmTC_a73e4
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a73e4.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_a73e4.dir/CheckFunctionExists.c.o  -o cmTC_a73e4 -lpthreads 
+Run Build Command:"/usr/bin/make" "cmTC_69c05/fast"
+/usr/bin/make -f CMakeFiles/cmTC_69c05.dir/build.make CMakeFiles/cmTC_69c05.dir/build
+make[1]: Entering directory '/home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_69c05.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_69c05.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.11/Modules/CheckFunctionExists.c
+Linking C executable cmTC_69c05
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_69c05.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_69c05.dir/CheckFunctionExists.c.o  -o cmTC_69c05 -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_a73e4.dir/build.make:97: recipe for target 'cmTC_a73e4' failed
-make[1]: *** [cmTC_a73e4] Error 1
-make[1]: Leaving directory '/home/ethan/Projects/2d-engine-2/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_a73e4/fast' failed
-make: *** [cmTC_a73e4/fast] Error 2
+CMakeFiles/cmTC_69c05.dir/build.make:86: recipe for target 'cmTC_69c05' failed
+make[1]: *** [cmTC_69c05] Error 1
+make[1]: Leaving directory '/home/ethan/Desktop/2d-engine/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_69c05/fast' failed
+make: *** [cmTC_69c05/fast] Error 2
 
 
