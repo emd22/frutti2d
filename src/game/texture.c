@@ -49,3 +49,8 @@ void texture_render(int width, int height) {
     glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
     glDisableVertexAttribArray(0);
 }
+
+void texture_delete(void) {
+    glDeleteBuffers(1, &vbuf);
+    glDeleteVertexArrays(1, &vaid);
+}

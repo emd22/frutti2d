@@ -58,6 +58,15 @@ unsigned shader_load(const char *vert_path, const char *frag_path) {
     FILE *vert = fopen(vert_path, "rb");
     FILE *frag = fopen(frag_path, "rb");
 
+    if (vert == NULL) {
+        printf("could not find vertex shader\n");
+        return 0;
+    }
+    if (frag == NULL) {
+        printf("could not find fragment shader\n");
+        return 0;
+    }
+
     char *vdata = get_shader_data(vert);
     char *fdata = get_shader_data(frag);
     fclose(vert);
@@ -70,7 +79,6 @@ unsigned shader_load(const char *vert_path, const char *frag_path) {
     if (compile_shader(fdata, FRAG_SHADER, &fragment)) {
         return 0;
     }
-    printf("fut\n");
 
     unsigned shader_id = glCreateProgram();
     glAttachShader(shader_id, vertex);
@@ -86,5 +94,9 @@ unsigned shader_load(const char *vert_path, const char *frag_path) {
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 
+    free(vdata);
+    free(fdata);
+
+    printf("shader id: %u\n", shader_id);
     return shader_id;
 }

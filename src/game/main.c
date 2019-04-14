@@ -47,14 +47,13 @@ void draw_quad(void) {
 }
 
 void draw(void) {
-    printf("expose\n");
-    glClearColor(0.4, 0.0, 0.6, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // glViewport(0, 0, 600, 600);
-    // glUseProgram(shader_id);
+    printf("shd id: %u\n", shader_id);
     // draw_quad();
 
+    glUseProgram(shader_id);
     texture_render(2, 2);
 
     glXSwapBuffers(display, window.window);
@@ -94,9 +93,12 @@ void *window_thread(void *arg) {
     }
     started = 1;
     shader_id = shader_load("../shaders/tex.vert", "../shaders/tex.frag");
-    printf("done...\n");
+    glClearColor(0.4, 0.0, 0.6, 1.0);
     texture_init(5, 5, NULL);
     wm_events_loop(&on_event);
+    texture_delete();
+    glDeleteProgram(shader_id);
+    printf("done\n");
     wm_exit(display);
     return NULL;
 }
@@ -107,12 +109,11 @@ int main() {
     thread_create(&event_thread, &window_thread, NULL);
     
     while (!started);
-    unsigned char img[] = {
-        0, 0, 0,     1, 1, 1,
-        0, 0, 0,     1, 1, 1
-    };
-    texture_init(2, 2, img);
-
+    // unsigned char img[] = {
+    //     0, 0, 0,     1, 1, 1,
+    //     0, 0, 0,     1, 1, 1
+    // };
+    sleep(1900);
     while (wm_events_is_running()) {
     }
 
