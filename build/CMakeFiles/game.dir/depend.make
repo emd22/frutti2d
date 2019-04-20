@@ -4,6 +4,7 @@
 CMakeFiles/game.dir/game/file/bmp.c.o: /home/ethan/Projects/2d-engine-2/src/../include/game/file/bmp.h
 CMakeFiles/game.dir/game/file/bmp.c.o: /home/ethan/Projects/2d-engine-2/src/game/file/bmp.c
 
+CMakeFiles/game.dir/game/main.c.o: /home/ethan/Projects/2d-engine-2/src/../include/game/file/bmp.h
 CMakeFiles/game.dir/game/main.c.o: /home/ethan/Projects/2d-engine-2/src/../include/game/macros.h
 CMakeFiles/game.dir/game/main.c.o: /home/ethan/Projects/2d-engine-2/src/../include/game/shader.h
 CMakeFiles/game.dir/game/main.c.o: /home/ethan/Projects/2d-engine-2/src/../include/game/texture.h

@@ -16,4 +16,6 @@ typedef struct {
     unsigned char *data;
 } bmp_file_t;
 
+bmp_file_t bmp_open(const char *fn);
+
 #endif

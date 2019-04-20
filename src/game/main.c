@@ -6,6 +6,7 @@
 #include <game/threads.h>
 #include <game/texture.h>
 #include <game/shader.h>
+#include <game/file/bmp.h>
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -23,9 +24,19 @@ char started = 0;
 GLXContext glx_context;
 window_t window;
 unsigned shader_id;
+unsigned texture;
+
+// struct {
+//   unsigned int 	 width;
+//   unsigned int 	 height;
+//   unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
+//   unsigned int	 pixels[10 * 10 * 3 + 1];
+// } img = {
+//   10, 10, 3,
+//   0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0x00, 0xA8, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA8, 0xFF, 0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0x00, 0x00, 0xD5, 0x8E, 0x31, 0x00, 0xA8, 0xFF, 0x00, 0xA8, 0xFF, 0x09, 0x09, 0xFF, 0x09, 0x09, 0xFF, 0x09, 0x09, 0xFF, 0x09, 0x09, 0xFF, 0x00, 0xA8, 0xFF, 0x00, 0xA8, 0xFF, 0xD5, 0x8E, 0x31, 0x00, 0x00, 0xD5, 0x8E, 0x31, 0x00, 0xA8, 0xFF, 0x09, 0x09, 0xFF, 0x09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, D5, 8E, 31, 00, 00, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, 00, 00, 00, 00, 00, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, 00, 00, 00, 00, 00, 00, 00, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, 00, 00, 00, 00, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, 00, 00, D5, 8E, 31, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, D5, 8E, 31, 00, 00, D5, 8E, 31, 00, A8, FF, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, 00, A8, FF, D5, 8E, 31, 00, 00, D5, 8E, 31, D5, 8E, 31, D5, 8E, 31, 00, A8, FF, 00, 00, 00, 00, 00, 00, 00, A8, FF, D5, 8E, 31, D5, 8E, 31, D5, 8E, 31, 00, 00
+// };
 
 void draw_quad(void) {
-
     // glClearColor(1.0, 1.0, 1.0, 1.0);
     // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -54,7 +65,7 @@ void draw(void) {
     // draw_quad();
 
     glUseProgram(shader_id);
-    texture_render(2, 2);
+    texture_render(texture, 50, 50);
 
     glXSwapBuffers(display, window.window);
 }
@@ -92,9 +103,16 @@ void *window_thread(void *arg) {
         return NULL;
     }
     started = 1;
+
+
+    unsigned char image[] = {
+        0, 255, 0,     255, 255, 255,
+        0, 255, 0,     255, 255, 255
+    };
     shader_id = shader_load("../shaders/tex.vert", "../shaders/tex.frag");
     glClearColor(0.4, 0.0, 0.6, 1.0);
-    texture_init(5, 5, NULL);
+    bmp_file_t bmp = bmp_open("../test.bmp");
+    texture = texture_init(10, 10, bmp.data);
     wm_events_loop(&on_event);
     texture_delete();
     glDeleteProgram(shader_id);
@@ -104,7 +122,6 @@ void *window_thread(void *arg) {
 }
 
 int main() {
-    
     thread_t event_thread;
     thread_create(&event_thread, &window_thread, NULL);
     
@@ -113,9 +130,8 @@ int main() {
     //     0, 0, 0,     1, 1, 1,
     //     0, 0, 0,     1, 1, 1
     // };
-    sleep(1900);
-    while (wm_events_is_running()) {
-    }
+    // while (wm_events_is_running());
+    thread_join(event_thread, NULL);
 
     return 0;
 }

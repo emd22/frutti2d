@@ -40,6 +40,7 @@ void wm_events_loop(void (*on_event)(event_t)) {
     event_t event;
 
     while (!loop_finished) {
+        usleep(1000);
         while (XPending(display)) {
             memset(&event, 0, sizeof(event_t));
             XNextEvent(display, &(event.event));

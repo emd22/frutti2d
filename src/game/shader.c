@@ -29,8 +29,7 @@ char *get_shader_data(FILE *fp) {
 }
 
 int compile_shader(const char *data, int type, unsigned *_shader) {
-    unsigned shader;
-    shader = glCreateShader(type);
+    unsigned shader = glCreateShader((type == VERT_SHADER) ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
     glShaderSource(shader, 1, &data, NULL);
     printf("compiling shader...\n");
     glCompileShader(shader);

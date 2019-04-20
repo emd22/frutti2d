@@ -75,6 +75,8 @@ game/texture.h
 -
 game/shader.h
 -
+game/file/bmp.h
+-
 GL/glew.h
 -
 GL/gl.h
