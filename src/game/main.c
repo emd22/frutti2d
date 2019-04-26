@@ -6,6 +6,7 @@
 #include <game/threads.h>
 #include <game/texture.h>
 #include <game/shader.h>
+#include <game/draw.h>
 #include <game/file/bmp.h>
 
 #include <GL/glew.h>
@@ -24,66 +25,43 @@ char started = 0;
 GLXContext glx_context;
 window_t window;
 unsigned shader_id;
-unsigned texture;
-
-// struct {
-//   unsigned int 	 width;
-//   unsigned int 	 height;
-//   unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */ 
-//   unsigned int	 pixels[10 * 10 * 3 + 1];
-// } img = {
-//   10, 10, 3,
-//   0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0x00, 0xA8, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA8, 0xFF, 0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0xD5, 0x8E, 0x31, 0x00, 0x00, 0xD5, 0x8E, 0x31, 0x00, 0xA8, 0xFF, 0x00, 0xA8, 0xFF, 0x09, 0x09, 0xFF, 0x09, 0x09, 0xFF, 0x09, 0x09, 0xFF, 0x09, 0x09, 0xFF, 0x00, 0xA8, 0xFF, 0x00, 0xA8, 0xFF, 0xD5, 0x8E, 0x31, 0x00, 0x00, 0xD5, 0x8E, 0x31, 0x00, 0xA8, 0xFF, 0x09, 0x09, 0xFF, 0x09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, D5, 8E, 31, 00, 00, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, 00, 00, 00, 00, 00, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, 00, 00, 00, 00, 00, 00, 00, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, 00, 00, 00, 00, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, 00, 00, D5, 8E, 31, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, D5, 8E, 31, 00, 00, D5, 8E, 31, 00, A8, FF, 00, A8, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 09, 09, FF, 00, A8, FF, 00, A8, FF, D5, 8E, 31, 00, 00, D5, 8E, 31, D5, 8E, 31, D5, 8E, 31, 00, A8, FF, 00, 00, 00, 00, 00, 00, 00, A8, FF, D5, 8E, 31, D5, 8E, 31, D5, 8E, 31, 00, 00
-// };
-
-void draw_quad(void) {
-    // glClearColor(1.0, 1.0, 1.0, 1.0);
-    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // glOrtho(-1., 1., -1., 1., 1., 20.);
-
-    // glMatrixMode(GL_MODELVIEW);
-    // glLoadIdentity();
-    
-    // gluLookAt(0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
-    // glBegin(GL_QUADS);
-    // glColor3f(1, 0, 0); glVertex3f(-0.75, -0.75, 0.0);
-    // glColor3f(0, 1, 0); glVertex3f( 0.75, -0.75, 0.0);
-    // glColor3f(0, 0, 1); glVertex3f( 0.75,  0.75, 0.0);
-    // glColor3f(1, 1, 0); glVertex3f(-0.75,  0.75, 0.0);
-    // glEnd();
-}
+texture_t texture;
+texture_t texture2;
 
 void draw(void) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // glViewport(0, 0, 600, 600);
-    printf("shd id: %u\n", shader_id);
-    // draw_quad();
-
-    glUseProgram(shader_id);
-    texture_render(texture, 50, 50);
-
-    glXSwapBuffers(display, window.window);
+   draw_all(display, &window, shader_id);
 }
 
 void on_event(event_t event) {
+    draw_event_t draw_event;
     switch (event.type) {
         case EVENT_CLIENTMESSAGE:
-        case EVENT_KEYPRESS:
             wm_events_kill();
             break;
+        case EVENT_KEYPRESS:
+            texture.x += 1;
+            draw_event.type = 0;
+            draw_event.value = 0;
+            // memcpy(&draw_event.texture, &texture, sizeof(texture_t));
+            draw_event.texture = texture;
+            draw_push_event(&draw_event);
+            draw_event.texture = texture2;
+            draw_push_event(&draw_event);
+            break;
         case EVENT_EXPOSE:
+            draw_event.type = DRAW_EVENT_SINGLE_DRAW;
+            draw_event.value = 0;
+            draw_event.texture = texture;
+            draw_push_event(&draw_event);
+            draw_event.texture = texture2;
+            draw_push_event(&draw_event);
+            draw_all(display, &window, shader_id);
             switch (event.subtype) {
                 case SUBTYPE_WINDOW_RESIZE:
                     break;
                 default:
                     break;
             }
-            draw();
             break;
     }
 }
@@ -104,17 +82,25 @@ void *window_thread(void *arg) {
     }
     started = 1;
 
-
-    unsigned char image[] = {
-        0, 255, 0,     255, 255, 255,
-        0, 255, 0,     255, 255, 255
-    };
     shader_id = shader_load("../shaders/tex.vert", "../shaders/tex.frag");
     glClearColor(0.4, 0.0, 0.6, 1.0);
-    bmp_file_t bmp = bmp_open("../test.bmp");
-    texture = texture_init(10, 10, bmp.data);
-    wm_events_loop(&on_event);
-    texture_delete();
+    texture = texture_load("../test.bmp");
+    texture.draw_width = 100;
+    texture.draw_height = 100;
+
+    texture2 = texture_dupe(&texture);
+
+    draw_event_t draw_event;
+    draw_event.type = DRAW_EVENT_SINGLE_DRAW;
+    draw_event.value = 0;
+    draw_event.texture = texture;
+    // memcpy(&draw_event.texture, &texture, sizeof(texture_t));
+    draw_push_event(&draw_event);
+    draw_event.texture = texture2;
+    texture2.y = 200;
+    draw_push_event(&draw_event);
+    wm_events_loop(&on_event, &draw);
+    texture_delete(&texture);
     glDeleteProgram(shader_id);
     printf("done\n");
     wm_exit(display);

@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #ifdef IS_UNIX
 #include <X11/Xutil.h>
@@ -36,11 +37,13 @@ int wm_events_is_running(void) {
     return !loop_finished;
 }
 
-void wm_events_loop(void (*on_event)(event_t)) {
+void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
     event_t event;
+    int i;
 
     while (!loop_finished) {
         usleep(1000);
+        draw();
         while (XPending(display)) {
             memset(&event, 0, sizeof(event_t));
             XNextEvent(display, &(event.event));

@@ -1,7 +1,8 @@
-#version 330 core
+#version 120
 
-layout(location = 0) in vec3 aPos;
+attribute vec2 position;
 
 void main() {
-    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    //                   x, y     z ,  w
+    gl_Position = vec4(position, 0.0, 1.0);
 }

@@ -1,6 +1,11 @@
 {
     "files.associations": {
         "gl.h": "c",
-        "shader.h": "c"
+        "shader.h": "c",
+        "ctype.h": "c",
+        "bmp.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "macros.h": "c"
     }
 }
