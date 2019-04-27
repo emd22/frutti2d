@@ -1,3 +1,0 @@
-/home/ethan/Projects/2d-engine-2/build/CMakeFiles/rebuild_cache.dir
-/home/ethan/Projects/2d-engine-2/build/CMakeFiles/edit_cache.dir
-/home/ethan/Projects/2d-engine-2/build/CMakeFiles/game.dir
