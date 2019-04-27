@@ -1,6 +1,7 @@
 #include <game/draw.h>
 
 #include <string.h>
+#include <stdio.h>
 
 #include <game/macros.h>
 #include <game/wm/window.h>
@@ -20,7 +21,6 @@ void draw_all(display_t *display, window_t *window, unsigned shader_id) {
     int i;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(shader_id);
-    printf("dei:%d\n", draw_event_index);
     for (i = 0; i < draw_event_index; i++) {
         event = &draw_events[i];
         if (event->type == DRAW_EVENT_SINGLE_DRAW) {

@@ -1,5 +1,6 @@
 #include <game/texture.h>
 #include <game/file/bmp.h>
+#include <game/wm/window.h>
 
 #include <GL/glew.h>
 #include <GL/gl.h>

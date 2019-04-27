@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ethan/Desktop/2d-engine/src/../include/game/draw.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/draw.h
 game/texture.h
 -
 game/wm/window.h
@@ -14,29 +14,29 @@ game/wm/window.h
 game/wm/wm.h
 -
 
-/home/ethan/Desktop/2d-engine/src/../include/game/file/bmp.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/file/bmp.h
 stdint.h
 -
 
-/home/ethan/Desktop/2d-engine/src/../include/game/macros.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/macros.h
 
-/home/ethan/Desktop/2d-engine/src/../include/game/shader.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/shader.h
 
-/home/ethan/Desktop/2d-engine/src/../include/game/texture.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/texture.h
 
-/home/ethan/Desktop/2d-engine/src/../include/game/threads.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/threads.h
 game/macros.h
 -
 pthread.h
 -
 
-/home/ethan/Desktop/2d-engine/src/../include/game/wm/events.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/wm/events.h
 game/macros.h
 -
 game/wm/wm.h
 -
 
-/home/ethan/Desktop/2d-engine/src/../include/game/wm/window.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/wm/window.h
 game/macros.h
 -
 game/wm/wm.h
@@ -50,7 +50,7 @@ GL/glew.h
 GL/glx.h
 -
 
-/home/ethan/Desktop/2d-engine/src/../include/game/wm/wm.h
+/home/ethan/Projects/2d-engine-2/src/../include/game/wm/wm.h
 game/macros.h
 -
 X11/X.h
@@ -58,17 +58,19 @@ X11/X.h
 X11/Xlib.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/draw.c
+/home/ethan/Projects/2d-engine-2/src/game/draw.c
 game/draw.h
 -
 string.h
+-
+stdio.h
 -
 game/macros.h
 -
 game/wm/window.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/file/bmp.c
+/home/ethan/Projects/2d-engine-2/src/game/file/bmp.c
 game/file/bmp.h
 -
 stdint.h
@@ -78,7 +80,7 @@ stdio.h
 stdlib.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/main.c
+/home/ethan/Projects/2d-engine-2/src/game/main.c
 game/wm/window.h
 -
 game/wm/events.h
@@ -114,7 +116,7 @@ stdio.h
 unistd.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/shader.c
+/home/ethan/Projects/2d-engine-2/src/game/shader.c
 game/shader.h
 -
 GL/glew.h
@@ -128,10 +130,12 @@ stdio.h
 stdlib.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/texture.c
+/home/ethan/Projects/2d-engine-2/src/game/texture.c
 game/texture.h
 -
 game/file/bmp.h
+-
+game/wm/window.h
 -
 GL/glew.h
 -
@@ -146,7 +150,7 @@ stdlib.h
 ctype.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/threads.c
+/home/ethan/Projects/2d-engine-2/src/game/threads.c
 game/macros.h
 -
 game/threads.h
@@ -158,7 +162,7 @@ pthread.h
 windows.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/wm/events.c
+/home/ethan/Projects/2d-engine-2/src/game/wm/events.c
 game/wm/events.h
 -
 game/wm/wm.h
@@ -182,7 +186,7 @@ unistd.h
 sys/select.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/wm/window.c
+/home/ethan/Projects/2d-engine-2/src/game/wm/window.c
 game/wm/window.h
 -
 game/wm/wm.h
@@ -204,7 +208,7 @@ stdlib.h
 string.h
 -
 
-/home/ethan/Desktop/2d-engine/src/game/wm/wm.c
+/home/ethan/Projects/2d-engine-2/src/game/wm/wm.c
 game/wm/wm.h
 -
 stdio.h

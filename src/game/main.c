@@ -47,6 +47,8 @@ void on_event(event_t event) {
             draw_push_event(&draw_event);
             draw_event.texture = texture2;
             draw_push_event(&draw_event);
+
+            printf("kp: %d\n", wm_get_key(&event));
             break;
         case EVENT_EXPOSE:
             draw_event.type = DRAW_EVENT_SINGLE_DRAW;
@@ -80,7 +82,6 @@ void *window_thread(void *arg) {
         wm_exit(display);
         return NULL;
     }
-    started = 1;
 
     shader_id = shader_load("../shaders/tex.vert", "../shaders/tex.frag");
     glClearColor(0.4, 0.0, 0.6, 1.0);
@@ -88,7 +89,9 @@ void *window_thread(void *arg) {
     texture.draw_width = 100;
     texture.draw_height = 100;
 
-    texture2 = texture_dupe(&texture);
+    texture2 = texture_load("../frick.bmp");
+    texture2.draw_width = 100;
+    texture2.draw_height = 100;
 
     draw_event_t draw_event;
     draw_event.type = DRAW_EVENT_SINGLE_DRAW;
@@ -99,10 +102,13 @@ void *window_thread(void *arg) {
     draw_event.texture = texture2;
     texture2.y = 200;
     draw_push_event(&draw_event);
+    started = 1;
+    
     wm_events_loop(&on_event, &draw);
+    
     texture_delete(&texture);
     glDeleteProgram(shader_id);
-    printf("done\n");
+
     wm_exit(display);
     return NULL;
 }

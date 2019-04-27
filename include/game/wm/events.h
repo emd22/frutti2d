@@ -23,6 +23,7 @@ typedef struct {
 } event_t;
 
 void wm_events_init(display_t *_display);
+char wm_get_key(event_t *event);
 void wm_events_loop(void (*on_event)(event_t), void (*draw)(void));
 int wm_events_is_running(void);
 void wm_events_kill(void);

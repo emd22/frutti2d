@@ -13,9 +13,6 @@
 
 #include <unistd.h>
 #include <sys/select.h>
-
-int x11_fd;
-fd_set in_fds;
 #endif
 
 char loop_finished = 0;
@@ -23,10 +20,6 @@ display_t *display;
 
 void wm_events_init(display_t *_display) {
     display = _display;
-#ifdef IS_UNIX
-    // we use fd's because they are non blocking
-    x11_fd = ConnectionNumber(display);
-#endif
 }
 
 void wm_events_kill(void) {
@@ -37,9 +30,16 @@ int wm_events_is_running(void) {
     return !loop_finished;
 }
 
+char wm_get_key(event_t *event) {
+#ifdef IS_UNIX
+    return XLookupKeysym(&event->event.xkey, 0);
+#endif
+    return 0;
+}
+
 void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
     event_t event;
-    int i;
+    // int i;
 
     while (!loop_finished) {
         usleep(1000);

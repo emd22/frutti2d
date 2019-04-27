@@ -62,7 +62,7 @@ bmp_file_t bmp_open(const char *fn) {
         // goto end;
     // }
 
-end:
+// end:
     free(data);
     fclose(bmp);
 
