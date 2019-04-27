@@ -2,7 +2,7 @@
 #define TEXTURE_H
 
 #define TEX_TYPE_NULL 0
-#define TEX_TYPE_BMP  1
+#define TEX_TYPE_BMP_BGRA  1
 
 typedef struct {
     int x;

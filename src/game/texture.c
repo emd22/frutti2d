@@ -24,7 +24,7 @@ void texture_init(texture_t *texture) {
 
     glGenTextures(1, &texture_id);
     glBindTexture(GL_TEXTURE_2D, texture_id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, texture->width, texture->height, 0, GL_BGR, GL_UNSIGNED_BYTE, texture->pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_ABGR_EXT, GL_UNSIGNED_BYTE, texture->pixels);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);    
     
@@ -50,7 +50,7 @@ int get_extension(char *fn) {
     extension[j++] = 0;
 
     if (!strcmp(extension, ".bmp"))
-        return TEX_TYPE_BMP;
+        return TEX_TYPE_BMP_BGRA;
     return TEX_TYPE_NULL;
 }
 
@@ -58,12 +58,12 @@ texture_t texture_load(const char *fn) {
     int ext = get_extension((char *)fn);
     texture_t texture;
     memset(&texture, 0, sizeof(texture_t));
-    if (ext == TEX_TYPE_BMP) {
+    if (ext == TEX_TYPE_BMP_BGRA) {
         bmp_file_t bmp = bmp_open(fn);
         texture.width = bmp.width;
         texture.height = bmp.height;
         texture.pixels = bmp.data;
-        texture.type = TEX_TYPE_BMP;
+        texture.type = ext;
         texture_init(&texture);
     }
     return texture;
