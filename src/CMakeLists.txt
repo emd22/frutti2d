@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.5)
 file (GLOB_RECURSE SOURCES "*.c")
 file (GLOB_RECURSE HEADERS "../include/game/*.h")
 
-SET(GCC_COVERAGE_COMPILE_FLAGS "-g -Wall -Wpedantic")
+set(GCC_COVERAGE_COMPILE_FLAGS "-g -Wall -Wpedantic")
+set(OpenGL_GL_PREFERENCE GLVND)
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)

@@ -32,6 +32,29 @@ void draw(void) {
    draw_all(display, &window, shader_id);
 }
 
+void check_key(event_t *event) {
+
+    char ch = wm_get_key(event);
+    if (ch == 'w')
+        texture.y += 1;
+    if (ch == 'a')
+        texture.x -= 1;
+    if (ch == 's')
+        texture.y -= 1;
+    if (ch == 'd')
+        texture.x += 1;
+    // switch (wm_get_key(event)) {
+    //     case 'w':
+    //         break;
+    //     case 'a':
+    //         break;
+    //     case 's':
+    //         break;        
+    //     case 'd':
+    //         break;
+    // }
+}
+
 void on_event(event_t event) {
     draw_event_t draw_event;
     switch (event.type) {
@@ -39,7 +62,8 @@ void on_event(event_t event) {
             wm_events_kill();
             break;
         case EVENT_KEYPRESS:
-            texture.x += 1;
+            // texture.x += 1;
+            check_key(&event);
             draw_event.type = 0;
             draw_event.value = 0;
             // memcpy(&draw_event.texture, &texture, sizeof(texture_t));
@@ -48,7 +72,6 @@ void on_event(event_t event) {
             draw_event.texture = texture2;
             draw_push_event(&draw_event);
 
-            printf("kp: %d\n", wm_get_key(&event));
             break;
         case EVENT_EXPOSE:
             draw_event.type = DRAW_EVENT_SINGLE_DRAW;

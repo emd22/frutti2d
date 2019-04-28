@@ -1,7 +1,7 @@
-#version 120
+#version 300 es
 
-//out vec3 colour0;
+// out vec3 colour0;
 
 void main() {
-    //color = vec3(1,0,0);
+    // color = vec3(1,0,0);
 }
