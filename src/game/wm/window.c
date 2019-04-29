@@ -45,7 +45,7 @@ window_t window_new(const char *title, int flags, GLXContext *context) {
 
     XSetWindowAttributes window_attrs;
     window_attrs.colormap = colourmap;
-    window_attrs.event_mask = ExposureMask | KeyPressMask;
+    window_attrs.event_mask = ExposureMask | KeyPressMask | KeyReleaseMask;
 
     window.window = XCreateWindow(
         display, root, 

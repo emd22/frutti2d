@@ -72,7 +72,7 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
                 }
             }
 #endif
-
+            
             on_event(event);
         }
         
