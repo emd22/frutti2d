@@ -20,6 +20,7 @@ window_t windows[MAX_WINDOWS];
 int window_index = 0;
 
 window_t window_new(const char *title, int flags, GLXContext *context) {
+
     const int glx_attrs[] = {GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None};
 
     window_t window;
@@ -28,6 +29,7 @@ window_t window_new(const char *title, int flags, GLXContext *context) {
     display = wm_get_display();
 
     unsigned char screen = DefaultScreen(display);
+    XAutoRepeatOff(display);
 
     if (flags & WINDOW_FLAG_ROOT) {
         root = RootWindow(display, screen);

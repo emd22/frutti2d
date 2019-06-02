@@ -18,8 +18,12 @@
 char loop_finished = 0;
 display_t *display;
 
+char last_pressed[MAX_KEYS_PRESSED];
+int last_pressed_index = 0;
+
 void wm_events_init(display_t *_display) {
     display = _display;
+    memset(last_pressed, 0, MAX_KEYS_PRESSED);
 }
 
 void wm_events_kill(void) {
@@ -28,6 +32,11 @@ void wm_events_kill(void) {
 
 int wm_events_is_running(void) {
     return !loop_finished;
+}
+
+char *wm_get_pressed_keys(int *length) {
+    (*length) = MAX_KEYS_PRESSED;
+    return last_pressed; 
 }
 
 char wm_get_key(event_t *event) {
@@ -71,8 +80,23 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
                     event.subtype = SUBTYPE_WINDOW_RESIZE;
                 }
             }
-#endif
-            
+#endif      
+            if (event.type == EVENT_KEYPRESS) {
+                last_pressed[last_pressed_index++] = wm_get_key(&event);
+                if (last_pressed_index > MAX_KEYS_PRESSED)
+                    last_pressed_index = 0; 
+            }
+            else if (event.type == EVENT_KEYRELEASE) {
+                int i;
+                char ch = wm_get_key(&event);
+                for (i = 0; i < MAX_KEYS_PRESSED; i++) {
+                    if (last_pressed[i] == ch) {
+                        last_pressed[i] = 0;
+                        break;
+                    }
+                }
+            }
+
             on_event(event);
         }
         
