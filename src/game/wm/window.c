@@ -59,7 +59,7 @@ window_t window_new(const char *title, int flags, GLXContext *context) {
         (&window_attrs)
     );
 
-    XSelectInput(display, window.window, (ExposureMask | KeyPressMask));
+    XSelectInput(display, window.window, (ExposureMask | KeyPressMask | KeyReleaseMask));
     XStoreName(display, window.window, title);
     XMapWindow(display, window.window);
     XFlush(display);

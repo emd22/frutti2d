@@ -20,6 +20,8 @@
 
 #include <unistd.h>
 
+#define PLR_SPEED 0.1
+
 display_t *display = NULL;
 char started = 0;
 GLXContext glx_context;
@@ -40,13 +42,13 @@ void check_keys(void) {
     for (i = 0; i < key_index; i++) {
         ch = keys[i];
         if (ch == 'w')
-            texture.y += 1;
-        else if (ch == 'a' && texture.x != 0)
-            texture.x -= 1;
-        else if (ch == 's')
-            texture.y -= 1;
-        else if (ch == 'd' && texture.y != 600)
-            texture.x += 1;
+            texture.y += PLR_SPEED;
+        if (ch == 'a')
+            texture.x -= PLR_SPEED;
+        if (ch == 's')
+            texture.y -= PLR_SPEED;
+        if (ch == 'd')
+            texture.x += PLR_SPEED;
     }
 
 
@@ -64,14 +66,9 @@ void check_keys(void) {
 }
 
 void draw(void) {
+    check_keys();
     draw_all(display, &window, shader_id);
 
-    if (tick < 1000)
-        tick++;
-    else {
-        check_keys();
-        tick = 0;
-    }
 }
 
 void on_event(event_t event) {
@@ -81,30 +78,29 @@ void on_event(event_t event) {
             wm_events_kill();
             break;
         case EVENT_KEYRELEASE:
-            keys = wm_get_pressed_keys(&key_index);
             key_pressed = 0;
-            printf("releasing key\n");
             break;
         case EVENT_KEYPRESS:
+            keys = wm_get_pressed_keys(&key_index);
             key_pressed = 1;
-            // texture.x += 1;
-            draw_event.type = 0;
-            draw_event.value = 0;
-            // memcpy(&draw_event.texture, &texture, sizeof(texture_t));
-            draw_event.texture = texture;
-            draw_push_event(&draw_event);
-            draw_event.texture = texture2;
-            draw_push_event(&draw_event);
+            // // texture.x += 1;
+            // draw_event.type = 0;
+            // draw_event.value = 0;
+            // // memcpy(&draw_event.texture, &texture, sizeof(texture_t));
+            // draw_event.texture = texture;
+            // draw_push_event(&draw_event);
+            // draw_event.texture = texture2;
+            // draw_push_event(&draw_event);
 
             break;
         case EVENT_EXPOSE:
-            draw_event.type = DRAW_EVENT_SINGLE_DRAW;
-            draw_event.value = 0;
-            draw_event.texture = texture;
-            draw_push_event(&draw_event);
-            draw_event.texture = texture2;
-            draw_push_event(&draw_event);
-            draw_all(display, &window, shader_id);
+            // draw_event.type = DRAW_EVENT_SINGLE_DRAW;
+            // draw_event.value = 0;
+            // draw_event.texture = texture;
+            // draw_push_event(&draw_event);
+            // draw_event.texture = texture2;
+            // draw_push_event(&draw_event);
+            // draw_all(display, &window, shader_id);
             switch (event.subtype) {
                 case SUBTYPE_WINDOW_RESIZE:
                     break;
@@ -136,7 +132,8 @@ void *window_thread(void *arg) {
     texture.draw_width = 100;
     texture.draw_height = 100;
 
-    texture2 = texture_load("../frick.bmp");
+    // texture2 = texture_load("../frick.bmp");
+    texture2 = texture_dupe(&texture);
     texture2.draw_width = 100;
     texture2.draw_height = 100;
 
@@ -154,6 +151,7 @@ void *window_thread(void *arg) {
     wm_events_loop(&on_event, &draw);
     
     texture_delete(&texture);
+    texture_delete(&texture2);
     glDeleteProgram(shader_id);
 
     wm_exit(display);
@@ -164,9 +162,26 @@ int main() {
     thread_t event_thread;
     thread_create(&event_thread, &window_thread, NULL);
     
+    draw_event_t draw_event;    
     while (!started);
+    
     keys = wm_get_pressed_keys(&key_index);
     key_pressed = 0;
+
+    while (wm_events_is_running()) {
+        if (key_pressed) {
+            check_keys();
+            draw_event.type = 0;
+            draw_event.value = 0;
+
+            draw_event.texture = texture;
+            draw_push_event(&draw_event);
+            draw_event.texture = texture2;
+            draw_push_event(&draw_event);
+            usleep(3000);
+        }
+    }
+
     
     // unsigned char img[] = {
     //     0, 0, 0,     1, 1, 1,

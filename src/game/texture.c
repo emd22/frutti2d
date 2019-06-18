@@ -64,6 +64,7 @@ texture_t texture_load(const char *fn) {
         texture.height = bmp.height;
         texture.pixels = bmp.data;
         texture.type = ext;
+        texture.flags = 0;
         texture_init(&texture);
     }
     return texture;
@@ -72,12 +73,13 @@ texture_t texture_load(const char *fn) {
 texture_t texture_dupe(texture_t *src) {
     texture_t dest;
     memcpy(&dest, src, sizeof(texture_t));
+    dest.flags |= TEX_FLAGS_DUPE;
     return dest;
 }
 
 void texture_render(texture_t *texture) {
     glBindFramebuffer(GL_READ_FRAMEBUFFER, texture->fbo_id);
-    glBlitFramebuffer(0, 0, texture->width, texture->height, texture->x, texture->y, texture->x+texture->draw_width, texture->y+texture->draw_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    glBlitFramebuffer(0, 0, texture->width, texture->height, (int)texture->x, (int)texture->y, texture->x+texture->draw_width, texture->y+texture->draw_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
     glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 
     // glEnableVertexAttribArray(0);
@@ -96,7 +98,8 @@ void texture_render(texture_t *texture) {
 }
 
 void texture_delete(texture_t *texture) {
-    free(texture->pixels);
+    if (!(texture->flags & TEX_FLAGS_DUPE))
+        free(texture->pixels);
     // glDeleteBuffers(1, &vbuf);
     glDeleteFramebuffers(1, &texture->fbo_id);
     // glDeleteVertexArrays(1, &vaid);
