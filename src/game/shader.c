@@ -103,3 +103,7 @@ unsigned shader_load(const char *vert_path, const char *frag_path) {
     printf("shader id: %u\n", shader_id);
     return shader_id;
 }
+
+void shader_delete(unsigned shader_id) {
+    glDeleteProgram(shader_id);
+}

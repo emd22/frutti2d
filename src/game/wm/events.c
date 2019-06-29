@@ -21,6 +21,13 @@ display_t *display;
 char last_pressed[MAX_KEYS_PRESSED];
 int last_pressed_index = 0;
 
+void wm_get_mouse_coords(event_t *event, int *coords) {
+#ifdef IS_UNIX
+    coords[0] = event->event.xbutton.x;
+    coords[1] = event->event.xbutton.y;
+#endif
+}
+
 void wm_events_init(display_t *_display) {
     display = _display;
     memset(last_pressed, 0, MAX_KEYS_PRESSED);

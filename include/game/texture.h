@@ -22,6 +22,8 @@ typedef struct {
     void *image;
 } texture_t;
 
+texture_t *texture_get_draw_stack(unsigned *index);
+void texture_push_to_draw_stack(texture_t *texture);
 texture_t texture_load(const char *fn);
 texture_t texture_dupe(texture_t *src);
 void texture_render(texture_t *texture);

@@ -11,6 +11,8 @@
 #define EVENT_EXPOSE Expose
 #define EVENT_KEYPRESS KeyPress
 #define EVENT_KEYRELEASE KeyRelease
+#define EVENT_BUTTONPRESS ButtonPress
+#define EVENT_BUTTONRELEASE ButtonRelease
 #define EVENT_CLIENTMESSAGE ClientMessage
 
 #define SUBTYPE_WINDOW_RESIZE 1
@@ -25,6 +27,7 @@ typedef struct {
     int subtype;
 } event_t;
 
+void wm_get_mouse_coords(event_t *event, int *coords);
 void wm_events_init(display_t *_display);
 char wm_get_key(event_t *event);
 char *wm_get_pressed_keys(int *length);

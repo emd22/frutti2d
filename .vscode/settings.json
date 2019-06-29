@@ -6,6 +6,9 @@
         "bmp.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "macros.h": "c"
+        "macros.h": "c",
+        "threads.h": "c",
+        "window.h": "c",
+        "wm.h": "c"
     }
 }

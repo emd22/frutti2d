@@ -33,7 +33,7 @@ typedef struct {
 #endif
 } window_t;
 
-window_t window_new(const char *title, int flags, GLXContext *context);
+window_t window_new(const char *title, int flags);
 int window_get_info(window_t *window, int option, void *value);
 window_t *find_window(intern_window_t window);
 window_t *get_window_at_index(int index);

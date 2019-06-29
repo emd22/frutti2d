@@ -11,7 +11,6 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GL/glx.h>
 
 #include <signal.h>
 #include <stdlib.h>
@@ -24,13 +23,12 @@
 
 display_t *display = NULL;
 char started = 0;
-GLXContext glx_context;
 window_t window;
 unsigned shader_id;
 texture_t texture;
 texture_t texture2;
 
-int key_pressed = 0;
+// int key_pressed = 0;
 char *keys;
 int key_index = 0;
 int tick = 0;
@@ -43,32 +41,18 @@ void check_keys(void) {
         ch = keys[i];
         if (ch == 'w')
             texture.y += PLR_SPEED;
-        if (ch == 'a')
+        else if (ch == 'a')
             texture.x -= PLR_SPEED;
-        if (ch == 's')
+        else if (ch == 's')
             texture.y -= PLR_SPEED;
-        if (ch == 'd')
+        else if (ch == 'd')
             texture.x += PLR_SPEED;
     }
-
-
-    // char ch = wm_get_key(event);
-    // switch (wm_get_key(event)) {
-    //     case 'w':
-    //         break;
-    //     case 'a':
-    //         break;
-    //     case 's':
-    //         break;        
-    //     case 'd':
-    //         break;
-    // }
 }
 
 void draw(void) {
     check_keys();
     draw_all(display, &window, shader_id);
-
 }
 
 void on_event(event_t event) {
@@ -78,53 +62,28 @@ void on_event(event_t event) {
             wm_events_kill();
             break;
         case EVENT_KEYRELEASE:
-            key_pressed = 0;
             break;
         case EVENT_KEYPRESS:
             keys = wm_get_pressed_keys(&key_index);
-            key_pressed = 1;
-            // // texture.x += 1;
-            // draw_event.type = 0;
-            // draw_event.value = 0;
-            // // memcpy(&draw_event.texture, &texture, sizeof(texture_t));
-            // draw_event.texture = texture;
-            // draw_push_event(&draw_event);
-            // draw_event.texture = texture2;
-            // draw_push_event(&draw_event);
 
             break;
-        case EVENT_EXPOSE:
-            // draw_event.type = DRAW_EVENT_SINGLE_DRAW;
-            // draw_event.value = 0;
-            // draw_event.texture = texture;
-            // draw_push_event(&draw_event);
-            // draw_event.texture = texture2;
-            // draw_push_event(&draw_event);
-            // draw_all(display, &window, shader_id);
-            switch (event.subtype) {
-                case SUBTYPE_WINDOW_RESIZE:
-                    break;
-                default:
-                    break;
-            }
+        case EVENT_BUTTONPRESS:
             break;
+        case EVENT_BUTTONRELEASE:
+            break;
+        // case EVENT_EXPOSE:
+        //     switch (event.subtype) {
+        //         case SUBTYPE_WINDOW_RESIZE:
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     break;
     }
 }
 
-void *window_thread(void *arg) {
-#ifdef IS_UNIX
-    XInitThreads();
-#endif
-    display = wm_start();
-    wm_events_init(display);
-    window = window_new("fut", WINDOW_FLAG_ROOT, &glx_context);
-    glewExperimental = 1;
-    if (glewInit() != GLEW_OK) {
-        printf("glew failed\n");
-        wm_events_kill();
-        wm_exit(display);
-        return NULL;
-    }
+void *window_thread(void) {
+    window = window_new("Interesting Title", WINDOW_FLAG_ROOT);
 
     shader_id = shader_load("../shaders/tex.vert", "../shaders/tex.frag");
     glClearColor(0.4, 0.0, 0.6, 1.0);
@@ -150,36 +109,33 @@ void *window_thread(void *arg) {
     
     wm_events_loop(&on_event, &draw);
     
-    texture_delete(&texture);
-    texture_delete(&texture2);
-    glDeleteProgram(shader_id);
+    // texture_delete(&texture);
+    // texture_delete(&texture2);
+    // shader_delete(shader_id);
 
     wm_exit(display);
     return NULL;
 }
 
 int main() {
-    thread_t event_thread;
-    thread_create(&event_thread, &window_thread, NULL);
-    
     draw_event_t draw_event;    
     while (!started);
     
     keys = wm_get_pressed_keys(&key_index);
-    key_pressed = 0;
+    // key_pressed = 0;
 
+    //main thread
     while (wm_events_is_running()) {
-        if (key_pressed) {
-            check_keys();
-            draw_event.type = 0;
-            draw_event.value = 0;
+        check_keys();
 
-            draw_event.texture = texture;
-            draw_push_event(&draw_event);
-            draw_event.texture = texture2;
-            draw_push_event(&draw_event);
-            usleep(3000);
-        }
+        draw_event.type = 0;
+        draw_event.value = 0;
+
+        draw_event.texture = texture;
+        draw_push_event(&draw_event);
+        draw_event.texture = texture2;
+        draw_push_event(&draw_event);
+        usleep(700);
     }
 
     

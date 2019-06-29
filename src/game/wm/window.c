@@ -17,10 +17,10 @@ GLXContext glx_context;
 
 display_t *display;
 window_t windows[MAX_WINDOWS];
+
 int window_index = 0;
 
-window_t window_new(const char *title, int flags, GLXContext *context) {
-
+window_t window_new(const char *title, int flags) {
     const int glx_attrs[] = {GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None};
 
     window_t window;
@@ -59,7 +59,7 @@ window_t window_new(const char *title, int flags, GLXContext *context) {
         (&window_attrs)
     );
 
-    XSelectInput(display, window.window, (ExposureMask | KeyPressMask | KeyReleaseMask));
+    XSelectInput(display, window.window, (/* ExposureMask |  */KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask));
     XStoreName(display, window.window, title);
     XMapWindow(display, window.window);
     XFlush(display);
@@ -70,7 +70,7 @@ window_t window_new(const char *title, int flags, GLXContext *context) {
     glx_context = glXCreateContext(display, visual_inf, NULL, GL_TRUE);
     glXMakeCurrent(display, window.window, glx_context);
 
-    (*context) = glx_context;
+    // (*context) = glx_context;
 
     glEnable(GL_DEPTH_TEST);
     
