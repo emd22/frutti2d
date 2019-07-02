@@ -77,9 +77,39 @@ texture_t texture_dupe(texture_t *src) {
     return dest;
 }
 
+void texture_spritesheet_next(texture_t *texture) {
+    texture->start_x += texture->draw_width;
+    if (texture->start_x >= texture->width) {
+        texture->start_x = 0;
+    }    
+    /*if (texture->start_x >= texture->width) {
+        texture->start_y += texture->draw_height;
+        texture->start_x = 0;
+    }*/
+
+    /*if (texture->start_x+texture->draw_width > texture->width &&
+        texture->start_y+texture->draw_height > texture->height) {
+        texture->start_y = 0;
+        texture->start_x = 0;
+    }
+    if (texture->start_x+texture->draw_width > texture->width) {
+        texture->start_y += texture->draw_height;
+        texture->start_x = 0;
+    }
+    else {
+        texture->start_x += texture->draw_width;
+    }*/
+}
+
 void texture_render(texture_t *texture) {
     glBindFramebuffer(GL_READ_FRAMEBUFFER, texture->fbo_id);
-    glBlitFramebuffer(0, 0, texture->width, texture->height, (int)texture->x, (int)texture->y, texture->x+texture->draw_width, texture->y+texture->draw_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
+    glBlitFramebuffer(texture->start_x, texture->start_y, 
+                      texture->start_x+texture->draw_width, texture->start_y+texture->draw_height, 
+                      (int)texture->x, (int)texture->y, 
+                      texture->x+texture->draw_scalex, texture->y+texture->draw_scaley, 
+                      GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
     glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 
     // glEnableVertexAttribArray(0);

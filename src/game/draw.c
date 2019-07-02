@@ -10,14 +10,13 @@
 
 draw_event_t draw_events[256];
 unsigned draw_event_index = 0;
-display_t *display = NULL;
 
 void draw_push_event(draw_event_t *event) {
     draw_event_t *draw_event = &draw_events[draw_event_index++];
     memcpy(draw_event, event, sizeof(draw_event_t));
 }
 
-void draw_all(window_t *window, unsigned shader_id) {
+void draw_all(display_t *display, window_t *window, unsigned shader_id) {
     if (!draw_event_index)
         return;
     if (display == NULL) {
@@ -27,7 +26,7 @@ void draw_all(window_t *window, unsigned shader_id) {
     draw_event_t *event;
     int i;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glUseProgram(shader_id);
+    // glUseProgram(shader_id);
     // printf("didx: %d\n", draw_event_index);
     for (i = 0; i < draw_event_index; i++) {
         event = &draw_events[i];

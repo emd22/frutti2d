@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
+project(frutti2d C)
+
 file (GLOB_RECURSE SOURCES "*.c")
 file (GLOB_RECURSE HEADERS "../include/game/*.h")
 
@@ -18,6 +20,8 @@ include_directories(
   ${THREADS_INCLUDE_DIRS}
 )
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
-
-add_executable(game ${SOURCES} ${HEADERS})
-target_link_libraries(game ${OPENGL_LIBRARY} ${GLEW_LIBRARIES} ${X11_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+add_library(frutti2d SHARED ${SOURCES})
+install(TARGETS frutti2d DESTINATION frutti2d/frutti2dd)
+install(FILES ${HEADERS} DESTINATION include/frutti2d)
+# add_executable(game ${SOURCES} ${HEADERS})
+target_link_libraries(frutti2d ${OPENGL_LIBRARY} ${GLEW_LIBRARIES} ${X11_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})

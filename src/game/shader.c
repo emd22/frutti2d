@@ -31,7 +31,7 @@ char *get_shader_data(FILE *fp) {
 int compile_shader(const char *data, int type, unsigned *_shader) {
     unsigned shader = glCreateShader((type == VERT_SHADER) ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
     glShaderSource(shader, 1, &data, NULL);
-    printf("compiling shader...\n");
+    // printf("compiling shader...\n");
     glCompileShader(shader);
     int success;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
@@ -66,6 +66,7 @@ unsigned shader_load(const char *vert_path, const char *frag_path) {
         return 0;
     }
 
+
     char *vdata = get_shader_data(vert);
     char *fdata = get_shader_data(frag);
     fclose(vert);
@@ -78,6 +79,7 @@ unsigned shader_load(const char *vert_path, const char *frag_path) {
     if (compile_shader(fdata, FRAG_SHADER, &fragment)) {
         return 0;
     }
+    return 0;
 
     unsigned shader_id = glCreateProgram();
     glAttachShader(shader_id, vertex);

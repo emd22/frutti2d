@@ -30,7 +30,8 @@ bmp_file_t bmp_open(const char *fn) {
     FILE *bmp = fopen(fn, "rb");
 
     if (bmp == NULL) {
-        printf("could not find file\n");
+        printf("Error: Could not load BMP file\n");
+        exit(1);
     }
     
     // get size of file
