@@ -41,8 +41,8 @@ int compile_shader(const char *data, int type, unsigned *_shader) {
         printf("Error: compilation of %s shader failed.\n", str_type[type]);
        
         int info_log_length;
-        char *info_log = malloc(info_log_length);
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_log_length);
+        char *info_log = malloc(info_log_length);
         glGetShaderInfoLog(shader, info_log_length, NULL, info_log);
         printf("INFO LOG: %s\n", info_log);
         free(info_log);

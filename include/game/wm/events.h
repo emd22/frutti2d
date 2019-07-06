@@ -4,7 +4,7 @@
 #include <game/macros.h>
 #include <game/wm/wm.h>
 
-#define MAX_KEYS_PRESSED 5
+#define MAX_KEYS_PRESSED 12
 
 #ifdef IS_UNIX
 

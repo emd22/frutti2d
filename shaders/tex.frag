@@ -1,4 +1,4 @@
-#version 300 es
+#version 460
 
 // out vec3 colour0;
 

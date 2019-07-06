@@ -26,7 +26,7 @@ void draw_all(display_t *display, window_t *window, unsigned shader_id) {
     draw_event_t *event;
     int i;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // glUseProgram(shader_id);
+    glUseProgram(shader_id);
     // printf("didx: %d\n", draw_event_index);
     for (i = 0; i < draw_event_index; i++) {
         event = &draw_events[i];
@@ -34,9 +34,6 @@ void draw_all(display_t *display, window_t *window, unsigned shader_id) {
             texture_render(&event->texture);
         }
     }
-
-    // glViewport(0, 0, 600, 600);
-    // draw_quad();
 
 #ifdef IS_UNIX
     glXSwapBuffers(display, window->window);

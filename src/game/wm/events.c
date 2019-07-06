@@ -58,7 +58,7 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
     // int i;
 
     while (!loop_finished) {
-        usleep(700);
+        // usleep(400);
         draw();
         while (XPending(display)) {
             memset(&event, 0, sizeof(event_t));
@@ -89,13 +89,19 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
             }
 #endif      
             if (event.type == EVENT_KEYPRESS) {
-                last_pressed[last_pressed_index++] = wm_get_key(&event);
-                if (last_pressed_index > MAX_KEYS_PRESSED)
-                    last_pressed_index = 0; 
+                printf("*KEYPRESS\n"); 
+                int i;
+                for (i = 0; i < MAX_KEYS_PRESSED; i++) {
+                    if (last_pressed[i] == 0) {
+                        last_pressed[i] = wm_get_key(&event);
+                        break;
+                    }
+                }
             }
             else if (event.type == EVENT_KEYRELEASE) {
                 int i;
                 char ch = wm_get_key(&event);
+                printf("KEYRELEASE %c\n", ch);
                 for (i = 0; i < MAX_KEYS_PRESSED; i++) {
                     if (last_pressed[i] == ch) {
                         last_pressed[i] = 0;

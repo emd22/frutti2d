@@ -13,6 +13,7 @@ typedef struct {
     void (*wm_start_func)(void);
     void (*draw_func)(void);
     void (*on_event_func)(event_t);
+    void (*cleanup_func)(void);
 } f2d_parameters_t;
 
 void f2d_start(f2d_parameters_t _f2d_parameters);
