@@ -89,7 +89,6 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
             }
 #endif      
             if (event.type == EVENT_KEYPRESS) {
-                printf("*KEYPRESS\n"); 
                 int i;
                 for (i = 0; i < MAX_KEYS_PRESSED; i++) {
                     if (last_pressed[i] == 0) {
@@ -101,7 +100,6 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
             else if (event.type == EVENT_KEYRELEASE) {
                 int i;
                 char ch = wm_get_key(&event);
-                printf("KEYRELEASE %c\n", ch);
                 for (i = 0; i < MAX_KEYS_PRESSED; i++) {
                     if (last_pressed[i] == ch) {
                         last_pressed[i] = 0;

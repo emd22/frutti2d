@@ -103,7 +103,7 @@ void texture_spritesheet_next(texture_t *texture) {
 
 void texture_render(texture_t *texture) {
     glBindFramebuffer(GL_READ_FRAMEBUFFER, texture->fbo_id);
-
+    glRotatef(90.0f, texture->start_x, texture->start_y, 1.0f);
     glBlitFramebuffer(texture->start_x, texture->start_y, 
                       texture->start_x+texture->draw_width, texture->start_y+texture->draw_height, 
                       (int)texture->x, (int)texture->y, 
