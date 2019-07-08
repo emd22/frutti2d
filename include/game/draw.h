@@ -6,11 +6,13 @@
 #include <game/wm/wm.h>
 
 #define DRAW_EVENT_SINGLE_DRAW 0
+#define DRAW_EVENT_CALLBACK 1
 
 typedef struct {
     int type;
     int value;
     texture_t texture;
+    void (*callback)(void);
 } draw_event_t;
 
 void draw_push_event(draw_event_t *event);

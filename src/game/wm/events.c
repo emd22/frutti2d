@@ -58,7 +58,7 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
     // int i;
 
     while (!loop_finished) {
-        // usleep(400);
+        usleep(700);
         draw();
         while (XPending(display)) {
             memset(&event, 0, sizeof(event_t));
