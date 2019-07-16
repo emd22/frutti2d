@@ -1,12 +1,12 @@
-#include <game/draw.h>
+#include <f2d/draw.h>
 
 #include <string.h>
 #include <stdio.h>
 
-#include <game/macros.h>
-#include <game/texture.h>
-#include <game/wm/window.h>
-#include <game/wm/wm.h>
+#include <f2d/macros.h>
+#include <f2d/texture.h>
+#include <f2d/wm/window.h>
+#include <f2d/wm/wm.h>
 
 #define DRAW_EVENTS_MAX 256
 
@@ -22,7 +22,7 @@ void draw_push_event(draw_event_t *event) {
     memcpy(draw_event, event, sizeof(draw_event_t));
 }
 
-void draw_all(display_t *display, window_t *window, unsigned shader_id) {
+void draw_all(display_t *display, window_t *window, long shader_id) {
     if (!draw_event_index)
         return;
     if (display == NULL) {
@@ -32,7 +32,8 @@ void draw_all(display_t *display, window_t *window, unsigned shader_id) {
     draw_event_t *event;
     int i;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glUseProgram(shader_id);
+    if (shader_id != -1)
+        glUseProgram(shader_id);
     for (i = 0; i < draw_event_index; i++) {
         event = &draw_events[i];
         if (event->type == DRAW_EVENT_SINGLE_DRAW) {
@@ -46,6 +47,6 @@ void draw_all(display_t *display, window_t *window, unsigned shader_id) {
 #ifdef IS_UNIX
     glXSwapBuffers(display, window->window);
 #endif
-    printf("didx: %d\n", draw_event_index);
+
     draw_event_index = 0;
 }

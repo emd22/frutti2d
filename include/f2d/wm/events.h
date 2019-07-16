@@ -1,8 +1,8 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-#include <game/macros.h>
-#include <game/wm/wm.h>
+#include <f2d/macros.h>
+#include <f2d/wm/wm.h>
 
 #define MAX_KEYS_PRESSED 12
 
@@ -31,7 +31,7 @@ void wm_get_mouse_coords(event_t *event, int *coords);
 void wm_events_init(display_t *_display);
 char wm_get_key(event_t *event);
 char *wm_get_pressed_keys(int *length);
-void wm_events_loop(void (*on_event)(event_t), void (*draw)(void));
+void wm_events_loop(void (*on_event)(void *), void (*draw)(void *));
 int wm_events_is_running(void);
 void wm_events_kill(void);
 

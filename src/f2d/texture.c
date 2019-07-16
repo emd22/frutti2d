@@ -1,6 +1,6 @@
-#include <game/texture.h>
-#include <game/file/bmp.h>
-#include <game/wm/window.h>
+#include <f2d/texture.h>
+#include <f2d/file/bmp.h>
+#include <f2d/wm/window.h>
 
 #include <GL/glew.h>
 #include <GL/gl.h>

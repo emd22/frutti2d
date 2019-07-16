@@ -1,14 +1,14 @@
-// #include <game/wm/window.h>
-// #include <game/wm/events.h>
-// #include <game/macros.h>
-// #include <game/wm/wm.h>
+// #include <f2d/wm/window.h>
+// #include <f2d/wm/events.h>
+// #include <f2d/macros.h>
+// #include <f2d/wm/wm.h>
 
-// #include <game/frutti2d.h>
-// #include <game/threads.h>
-// #include <game/texture.h>
-// #include <game/shader.h>
-// #include <game/draw.h>
-// #include <game/file/bmp.h>
+// #include <f2d/frutti2d.h>
+// #include <f2d/threads.h>
+// #include <f2d/texture.h>
+// #include <f2d/shader.h>
+// #include <f2d/draw.h>
+// #include <f2d/file/bmp.h>
 
 // #include <GL/glew.h>
 // #include <GL/gl.h>

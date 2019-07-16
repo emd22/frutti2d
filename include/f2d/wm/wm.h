@@ -1,7 +1,7 @@
 #ifndef WM_H
 #define WM_H
 
-#include <game/macros.h>
+#include <f2d/macros.h>
 
 #include <X11/X.h>
 #include <X11/Xlib.h>

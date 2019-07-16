@@ -1,7 +1,7 @@
-#include <game/wm/events.h>
-#include <game/wm/wm.h>
-#include <game/wm/window.h>
-#include <game/macros.h>
+#include <f2d/wm/events.h>
+#include <f2d/wm/wm.h>
+#include <f2d/wm/window.h>
+#include <f2d/macros.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -53,20 +53,20 @@ char wm_get_key(event_t *event) {
     return 0;
 }
 
-void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
+void wm_events_loop(void (*on_event)(void *), void (*draw)(void *)) {
     event_t event;
+    event_t *new_event = malloc(sizeof(event_t));
     // int i;
 
     while (!loop_finished) {
         usleep(700);
-        draw();
+        draw(NULL);
         while (XPending(display)) {
             memset(&event, 0, sizeof(event_t));
             XNextEvent(display, &(event.event));
 
             event.type = event.event.type;
 
-#ifdef IS_UNIX
             if (event.type == EVENT_EXPOSE) {
                 window_t *root_window = get_root_window();
 
@@ -87,7 +87,7 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
                     event.subtype = SUBTYPE_WINDOW_RESIZE;
                 }
             }
-#endif      
+            
             if (event.type == EVENT_KEYPRESS) {
                 int i;
                 for (i = 0; i < MAX_KEYS_PRESSED; i++) {
@@ -107,23 +107,9 @@ void wm_events_loop(void (*on_event)(event_t), void (*draw)(void)) {
                     }
                 }
             }
-
-            on_event(event);
+            memcpy(new_event, &event, sizeof(event_t));
+            on_event(new_event);
         }
-        
-// #ifdef IS_UNIX
-//         FD_ZERO(&in_fds);
-//         FD_SET(x11_fd, &in_fds);
-
-//         // check to see if fd updated
-//         select(x11_fd+1, &in_fds, NULL, NULL, NULL);
-
-//         // go through all events in buffer and call on_event accordingly
-//         do {
-//             XNextEvent(display, &(event.event));
-//             event.type = event.event.type;
-//             on_event(event);
-//         } while (XPending(display));
-// #endif
     }
+    free(new_event);
 }

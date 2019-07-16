@@ -1,8 +1,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <game/macros.h>
-#include <game/wm/wm.h>
+#include <f2d/macros.h>
+#include <f2d/wm/wm.h>
 
 #ifdef IS_UNIX
 #include <X11/X.h>

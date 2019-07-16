@@ -1,4 +1,4 @@
-#include <game/macros.h>
+#include <f2d/macros.h>
 
 #ifdef IS_UNIX
 #include <X11/Xlib.h>

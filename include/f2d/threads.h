@@ -1,7 +1,7 @@
 #ifndef THREADS_H
 #define THREADS_H
 
-#include <game/macros.h>
+#include <f2d/macros.h>
 
 #ifdef IS_UNIX
 #include <pthread.h>

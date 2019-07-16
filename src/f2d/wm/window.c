@@ -1,6 +1,6 @@
-#include <game/wm/window.h>
-#include <game/wm/wm.h>
-#include <game/macros.h>
+#include <f2d/wm/window.h>
+#include <f2d/wm/wm.h>
+#include <f2d/macros.h>
 
 #include <X11/Xatom.h>
 
@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// TODO: Document more
+
 Window root;
 GLXContext glx_context;
 
@@ -21,15 +23,17 @@ window_t windows[MAX_WINDOWS];
 int window_index = 0;
 
 window_t window_new(const char *title, int flags) {
+    // attributes to use for our GLX instance
+    // RGB+A colouring; 24 bits of colour. No double buffer(also a TODO)
     const int glx_attrs[] = {GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None};
 
     window_t window;
     memset(&window, 0, sizeof(window_t));
-
+    
+    // get information from our x11 instance
     display = wm_get_display();
 
     unsigned char screen = DefaultScreen(display);
-    XAutoRepeatOff(display);
 
     if (flags & WINDOW_FLAG_ROOT) {
         root = RootWindow(display, screen);

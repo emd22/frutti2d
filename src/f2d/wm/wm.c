@@ -1,4 +1,4 @@
-#include <game/wm/wm.h>
+#include <f2d/wm/wm.h>
 
 #include <stdio.h>
 #include <stdlib.h>

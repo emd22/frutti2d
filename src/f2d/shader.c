@@ -1,4 +1,4 @@
-#include <game/shader.h>
+#include <f2d/shader.h>
 
 #include <GL/glew.h>
 #include <GL/gl.h>

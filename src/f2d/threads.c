@@ -1,5 +1,5 @@
-#include <game/macros.h>
-#include <game/threads.h>
+#include <f2d/macros.h>
+#include <f2d/threads.h>
 
 #include <stdio.h>
 
