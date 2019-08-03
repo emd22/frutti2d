@@ -2,6 +2,6 @@
 #define CAMERA_H
 
 
-void camera_lookat();
+void camera_lookat(unsigned shader);
 
 #endif

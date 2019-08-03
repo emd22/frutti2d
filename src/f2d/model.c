@@ -32,12 +32,12 @@ model_t model_init(float *vertices, int vertex_amt) {
 
 void model_draw(model_t *model) {
     // use vertex positions from shader 0 (TODO: more shaders)
-    glEnableVertexAttribArray(0);
+    //glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, model->vbo);
     glVertexAttribPointer(0, model->vertex_amt, GL_FLOAT, GL_FALSE, 0, (void *)0);
     // finally draw the buffer
     glDrawArrays(GL_TRIANGLES, 0, model->vertex_amt);
-    glDisableVertexAttribArray(0);
+    //glDisableVertexAttribArray(0);
 }
 // model_t *model_init(float *vertices, int vertex_amt) {
 //     model_t *model = malloc(sizeof(model_t));
